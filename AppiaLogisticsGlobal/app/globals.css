@@ -1,12 +1,10 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
-/* Force mobile viewport consistency */
+/* Viewport defaults */
 html, body {
-  height: 100vh !important;
-  max-height: 100vh !important;
+  min-height: 100%;
   overflow-x: hidden !important;
-  position: fixed !important;
   width: 100% !important;
 }
 
@@ -17,17 +15,25 @@ html, body {
 
 /* Force container heights */
 .world-map-section {
-  height: 300px !important;
-  max-height: 400px !important;
-  min-height: 300px !important;
+  height: 515px !important;
+  max-height: 515px !important;
+  min-height: 515px !important;
+  overflow: visible !important;
+  position: relative !important;
 }
 
-@media (min-width: 768px) {
+/* Mobile: slightly shorter map container */
+@media (max-width: 767px) {
   .world-map-section {
-    height: 400px !important;
-    max-height: 400px !important;
-    min-height: 400px !important;
+    height: 300px !important;
+    max-height: 300px !important;
+    min-height: 300px !important;
   }
+}
+
+/* Ensure SVG inside the map container does not get clipped */
+.world-map-section svg {
+  overflow: visible !important;
 }
 
 .stats-section {
@@ -224,23 +230,4 @@ html, body {
   100% {
     transform: rotate(20deg) translateX(320%);
   }
-}
-
-/* Fix scrollbar layout shift when dropdowns open */
-html {
-  scrollbar-gutter: stable;
-}
-
-body {
-  scrollbar-gutter: stable;
-}
-
-/* Ensure select dropdowns don't cause layout shift */
-[data-radix-popper-content-wrapper] {
-  z-index: 9999;
-}
-
-/* Prevent body scroll when dropdown is open */
-body:has([data-state="open"]) {
-  overflow: hidden;
 }
